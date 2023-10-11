@@ -1,4 +1,4 @@
-// Definir preguntas y respuestas
+// Preguntas y respuestas
 const preguntas = [
     {
         pregunta: "¿Qué selección nunca ganó una Copa América?",
@@ -47,7 +47,7 @@ const preguntas = [
     }
 ];
 
-// Función para mezclar las preguntas
+// Función para mezclar las preguntas y no salgan ordenadas
 function mezclarPreguntas(preguntas) {
     for (let i = preguntas.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -56,7 +56,7 @@ function mezclarPreguntas(preguntas) {
     return preguntas;
 }
 
-// Función para ejecutar el juego de quiz
+// Función para ejecutar el juego 
 function jugarQuiz() {
     let puntaje = 0;
     const preguntasMezcladas = mezclarPreguntas([...preguntas]);
