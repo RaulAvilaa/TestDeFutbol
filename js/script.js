@@ -1,95 +1,137 @@
 // Preguntas y respuestas
-const preguntas = [
+const question = [
     {
-        pregunta: "¿Qué selección nunca ganó una Copa América?",
-        respuestas: [
-            { letra: "a", respuesta: "Colombia" },
-            { letra: "b", respuesta: "Bolivia" },
-            { letra: "c", respuesta: "Jamaica" }
-        ],
-        respuestaCorrecta: "c"
+        question: "¿Qué selección nunca ganó una Copa América?",
+        answer: [
+            { text: "Colombia", correct: false },
+            { text: "Bolivia", correct: false },
+            { text: "Jamaica", correct: true },
+        ]
     },
     {
-        pregunta: "¿Cual es el equipo con más Copas Libertadores de América?",
-        respuestas: [
-            { letra: "a", respuesta: "Peñarol" },
-            { letra: "b", respuesta: "Fluminense" },
-            { letra: "c", respuesta: "Independiente de Avellaneda" }
-        ],
-        respuestaCorrecta: "c"
+        question: "¿Cual es el equipo con más Copas Libertadores de América?",
+        answer: [
+            { text: "Peñarol", correct: false },
+            { text: "Fluminense", correct: false },
+            { text: "Independiente de Avellaneda", correct: true }
+        ]
     },
     {
-        pregunta: "¿Quién es el máximo goleador en Mundiales?",
-        respuestas: [
-            { letra: "a", respuesta: "Klose (Alemania)" },
-            { letra: "b", respuesta: "Pelé (Brasil)" },
-            { letra: "c", respuesta: "Ronaldo (Brasil)" }
-        ],
-        respuestaCorrecta: "a"
+        question: "¿Quién es el máximo goleador en Mundiales?",
+        answer: [
+            { text: "Klose (Alemania)", correct: true },
+            { text: "Pelé (Brasil)", correct: false },
+            { text: "Ronaldo (Brasil)", correct: false }
+        ]
     },
     {
-        pregunta: "¿Quién es el máximo goleador en la historia de la Copa Libertadores?",
-        respuestas: [
-            { letra: "a", respuesta: "Alberto Spencer (Ecuador)" },
-            { letra: "b", respuesta: "Fernando Morena (Uruguay)" },
-            { letra: "c", respuesta: "Diego Maradona (Argentina)" }
-        ],
-        respuestaCorrecta: "a"
+        question: "¿Quién es el máximo goleador en la historia de la Copa Libertadores?",
+        answer: [
+            { text: "Alberto Spencer (Ecuador)", correct: true },
+            { text: "Fernando Morena (Uruguay)", correct: false },
+            { text: "Diego Maradona (Argentina)", correct: false }
+        ]
     },
     {
-        pregunta: "¿Cuál es el actual Campeón del Mundo?",
-        respuestas: [
-            { letra: "a", respuesta: "Alemania" },
-            { letra: "b", respuesta: "Argentina" },
-            { letra: "c", respuesta: "Chile" }
-        ],
-        respuestaCorrecta: "b"
+        question: "¿Cuál es el actual Campeón del Mundo?",
+        answer: [
+            { text: "Alemania", correct: false },
+            { text: "Argentina", correct: true },
+            { text: "Chile", correct: false }
+        ]
     }
 ];
 
-// Función para mezclar las preguntas y no salgan ordenadas
-function mezclarPreguntas(preguntas) {
-    for (let i = preguntas.length - 1; i > 0; i--) {
+const questionElement = document.getElementById("question");
+const answerButtons = document.getElementById("answer-buttons");
+const nextButton = document.getElementById("next-btn");
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+// Función para barajar las preguntas en el array 'question'
+function shuffleQuestions(question) {
+    for (let i = question.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [preguntas[i], preguntas[j]] = [preguntas[j], preguntas[i]];
+        [question[i], question[j]] = [question[j], question[i]];
     }
-    return preguntas;
+    return question;
 }
+// Función para comenzar el quiz
+function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    nextButton.innerHTML = "Siguiente";
+    // Barajar las preguntas
+    shuffleQuestions(question);
+    showQuestion();
+}
+// Función para mostrar una pregunta
+function showQuestion() {
+    resetState();
+    let currentQuestion = question[currentQuestionIndex];
+    let questionNo = currentQuestionIndex + 1;
+    questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
 
-// Función para ejecutar el juego 
-function jugarQuiz() {
-    let puntaje = 0;
-    const preguntasMezcladas = mezclarPreguntas([...preguntas]);
-
-    for (let i = 0; i < preguntasMezcladas.length; i++) {
-        const preguntaActual = preguntasMezcladas[i];
-        const respuesta = prompt(`${preguntaActual.pregunta}\n${preguntaActual.respuestas.map(r => `(${r.letra}) ${r.respuesta}`).join('\n')}`);
-
-        if (respuesta === null) {
-            // El usuario ha cancelado el juego
-            mostrarMensajeFinal(puntaje, true);
-            return;
+    currentQuestion.answer.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerHTML = answer.text;
+        button.classList.add("btn");
+        answerButtons.appendChild(button);
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
         }
-
-        if (respuesta && respuesta.toLowerCase() === preguntaActual.respuestaCorrecta) {
-            puntaje++;
-            alert("¡Respuesta correcta!");
-        } else {
-            alert(`Respuesta incorrecta. La respuesta correcta es: (${preguntaActual.respuestaCorrecta}) ${preguntaActual.respuestas.find(r => r.letra === preguntaActual.respuestaCorrecta).respuesta}`);
-        }
+        button.addEventListener("click", selectAnswer)
+    });
+}
+// Función para reiniciar el estado del juego
+function resetState() {
+    nextButton.style.display = "none";
+    while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
     }
-
-    mostrarMensajeFinal(puntaje, false);
 }
-
-// Función para mostrar el mensaje final
-function mostrarMensajeFinal(puntaje, cancelado) {
-    if (cancelado) {
-        alert("El juego ha sido cancelado.");
+// Función para manejar la selección de una respuesta
+function selectAnswer(e) {
+    const selectedBtn = e.target;
+    const isCorrect = selectedBtn.dataset.correct === "true";
+    if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
     } else {
-        alert(`El juego ha finalizado. ¡Gracias por jugar!\nPuntaje total: ${puntaje} de 5`);
+        selectedBtn.classList.add("incorrect");
+    }
+    Array.from(answerButtons.children).forEach(button => {
+        if (button.dataset.correct === "true") {
+            button.classList.add("correct");
+        }
+        button.disabled = true;
+    });
+    nextButton.style.display = "block";
+}
+// Función para mostrar la puntuación final
+function showScore() {
+    resetState();
+    questionElement.innerHTML = `Juego final. Tu puntaje final es ${score} de ${question.length}!`;
+    nextButton.innerHTML = "Jugar de nuevo";
+    nextButton.style.display = "block";
+}
+// Función para manejar el botón "Siguiente"
+function handleNextButton() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < question.length) {
+        showQuestion();
+    } else {
+        showScore();
     }
 }
-
-// Iniciar el juego al cargar la página
-jugarQuiz();
+// Manejo del evento click en el botón "Siguiente"
+nextButton.addEventListener("click", () => {
+    if (currentQuestionIndex < question.length) {
+        handleNextButton();
+    } else {
+        startQuiz();
+    }
+});
+// Iniciar el quiz
+startQuiz();
