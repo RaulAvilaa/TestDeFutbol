@@ -57,7 +57,6 @@ function showQuestion() {
     });
 }
 
-
 function resetState() {
     nextButton.style.display = 'none';
     while (answerButtons.firstChild) {
@@ -75,7 +74,6 @@ function selectAnswer(index) {
         score++;
     } else {
         selectedBtn.classList.add('incorrect');
-
         // Mostrar la respuesta correcta
         const correctIndex = question[currentQuestionIndex].answer.findIndex(answer => answer.correct);
         const correctBtn = answerButtons.querySelector(`[data-index="${correctIndex}"]`);
@@ -91,12 +89,13 @@ function selectAnswer(index) {
     nextButton.style.display = 'block';
 }
 
-
 function showScore() {
     resetState();
     questionElement.innerHTML = `Juego final. Tu puntaje final es ${score} de ${question.length}!`;
     nextButton.innerHTML = 'Jugar de nuevo';
     nextButton.style.display = 'block';
+    // Guardar el puntaje
+    guardarPuntaje(score);
 }
 
 function handleNextButton() {
@@ -115,6 +114,27 @@ nextButton.addEventListener('click', () => {
         startQuiz();
     }
 });
+
+function guardarPuntaje(puntaje) {
+    // Obtener los puntajes anteriores
+    let puntajes = JSON.parse(localStorage.getItem('puntajes')) || [];
+    // Agregar el nuevo puntaje
+    puntajes.push(puntaje);
+    // Ordenar los puntajes de mayor a menor
+    puntajes.sort((a, b) => b - a);
+    // Guardar solo los primeros 10 puntajes
+    puntajes = puntajes.slice(0, 10);
+    // Guardar los puntajes en el localStorage
+    localStorage.setItem('puntajes', JSON.stringify(puntajes));
+}
+function mostrarPuntajes() {
+    // Obtener los puntajes del localStorage
+    let puntajes = JSON.parse(localStorage.getItem('puntajes')) || [];
+    // Crear una lista con los puntajes
+    let listaPuntajes = puntajes.map((puntaje, index) => `<li>Puesto ${index + 1}: ${puntaje}</li>`).join('');
+    // Mostrar la lista de puntajes
+    document.getElementById('lista-puntajes').innerHTML = listaPuntajes;
+}
 
 // Iniciar el quiz
 startQuiz();
