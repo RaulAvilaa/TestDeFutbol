@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "¿Qué selección nunca ganó una Copa América?",
+        "answer": [
+            { "text": "Colombia", "correct": false },
+            { "text": "Bolivia", "correct": false },
+            { "text": "Jamaica", "correct": true }
+        ]
+    },
+    {
+        "question": "¿Cuál es el equipo con más Copas Libertadores de América?",
+        "answer": [
+            { "text": "Peñarol", "correct": false },
+            { "text": "Fluminense", "correct": false },
+            { "text": "Independiente de Avellaneda", "correct": true }
+        ]
+    },
+    {
+        "question": "¿Quién es el máximo goleador en Mundiales?",
+        "answer": [
+            { "text": "Klose (Alemania)", "correct": true },
+            { "text": "Pelé (Brasil)", "correct": false },
+            { "text": "Ronaldo (Brasil)", "correct": false }
+        ]
+    },
+    {
+        "question": "¿Quién es el máximo goleador en la historia de la Copa Libertadores?",
+        "answer": [
+            { "text": "Alberto Spencer (Ecuador)", "correct": true },
+            { "text": "Fernando Morena (Uruguay)", "correct": false },
+            { "text": "Diego Maradona (Argentina)", "correct": false }
+        ]
+    },
+    {
+        "question": "¿Cuál es el actual Campeón del Mundo?",
+        "answer": [
+            { "text": "Alemania", "correct": false },
+            { "text": "Argentina", "correct": true },
+            { "text": "Chile", "correct": false }
+        ]
+    }
+]
