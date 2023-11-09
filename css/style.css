@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 body {
-    background: #47d967e7;
+    background: #37cc57e7;
 }
 .app {
     background: #fff;
@@ -14,6 +14,7 @@ body {
     margin: 100px auto 0;
     border-radius: 10px;
     padding: 30px;
+    box-shadow: 10px 10px 15px #0d621fe7;
 }
 .app h1 {
     text-align: left;

@@ -9,11 +9,11 @@ let selectedAnswerHandler = null;
 
 function fetchQuestions() {
     return fetch('js/preguntas.json')
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('La respuesta al cargar los datos no fue correcta');
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error('Hubo un problema al obtener los datos');
             }
-            return response.json();
+            return res.json();
         })
         .catch((error) => {
             console.error('Error al cargar las preguntas:', error);
@@ -34,7 +34,7 @@ function startQuiz() {
     nextButton.innerHTML = 'Siguiente';
     fetchQuestions()
         .then((data) => {
-            question = data; // Asigna los datos del JSON a la variable 'question'
+            question = data; //Asigna los datos del JSON a la variable 'question'
             shuffleQuestions(question);
             showQuestion();
         });
@@ -79,7 +79,6 @@ function selectAnswer(index) {
         const correctBtn = answerButtons.querySelector(`[data-index="${correctIndex}"]`);
         correctBtn.classList.add('correct');
     }
-
     // Bloquear los botones después de la selección
     const buttons = answerButtons.querySelectorAll('button');
     buttons.forEach(button => {
@@ -94,8 +93,8 @@ function showScore() {
     questionElement.innerHTML = `Juego final. Tu puntaje final es ${score} de ${question.length}!`;
     nextButton.innerHTML = 'Jugar de nuevo';
     nextButton.style.display = 'block';
-    // Guardar el puntaje
-    guardarPuntaje(score);
+
+    guardarPuntaje(score); // Guardar el puntaje
 }
 
 function handleNextButton() {
@@ -127,13 +126,11 @@ function guardarPuntaje(puntaje) {
     // Guardar los puntajes en el localStorage
     localStorage.setItem('puntajes', JSON.stringify(puntajes));
 }
-function mostrarPuntajes() {
+function guardarPuntajes() {
     // Obtener los puntajes del localStorage
     let puntajes = JSON.parse(localStorage.getItem('puntajes')) || [];
-    // Crear una lista con los puntajes
-    let listaPuntajes = puntajes.map((puntaje, index) => `<li>Puesto ${index + 1}: ${puntaje}</li>`).join('');
-    // Mostrar la lista de puntajes
-    document.getElementById('lista-puntajes').innerHTML = listaPuntajes;
+    // Guardar los puntajes actualizados en el localStorage
+    localStorage.setItem('puntajes', JSON.stringify(puntajes));
 }
 
 // Iniciar el quiz
