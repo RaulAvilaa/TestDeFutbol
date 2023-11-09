@@ -4,9 +4,11 @@
     font-family: Geneva, Tahoma, sans-serif;
     box-sizing: border-box;
 }
+
 body {
     background: #37cc57e7;
 }
+
 .app {
     background: #fff;
     width: 90%;
@@ -24,20 +26,21 @@ body {
     border-bottom: 1px solid #333;
     padding-bottom: 30px;
 }
-.quiz{
+.quiz {
     padding: 20px 0;
 }
-.quiz h2{
+.quiz h2 {
     font-size: 19px;
-    color:#001e4d;
+    color: #001e4d;
     font-weight: 600px;
 }
-.btn{
+
+.btn {
     background: #fff;
     color: #0c0c0c;
     font-weight: 500;
     width: 100%;
-    border:1px solid #222;
+    border: 1px solid #222;
     padding: 10px;
     margin: 10px 0;
     text-align: left;
@@ -45,11 +48,11 @@ body {
     cursor: pointer;
     transition: all 0.3s;
 }
-.btn:hover:not([disabled]){
+.btn:hover:not([disabled]) {
     background: #333;
     color: #fff;
 }
-.btn:disabled{
+.btn:disabled {
     cursor: no-drop;
 }
 #next-btn{
@@ -63,10 +66,25 @@ body {
     border-radius: 4px;
     cursor: pointer;
     display: none;
+} 
+/* Tamaño y color del sweetAlert*/
+.swal2-popup {
+    font-size: 1.4rem !important;
 }
-.correct{
+.swal2-styled.swal2-confirm {
+    background-color: #022b6c !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-size: 1.2rem !important;
+}
+.swal2-title {
+    color: #0c0c0c !important;
+}
+/* Color de las respuestas Correcctas e Incorrectas */
+.correct {
     background: #72e6a4;
 }
-.incorrect{
+.incorrect {
     background: #ee8080;
 }

@@ -90,10 +90,15 @@ function selectAnswer(index) {
 
 function showScore() {
     resetState();
-    questionElement.innerHTML = `Juego final. Tu puntaje final es ${score} de ${question.length}!`;
-    nextButton.innerHTML = 'Jugar de nuevo';
-    nextButton.style.display = 'block';
-
+    Swal.fire({
+        title: '¡Has completado el juego!',
+        text: `Tu puntaje final es ${score} de ${question.length}!`,
+        confirmButtonText: 'Jugar de nuevo'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            startQuiz();
+        }
+    });
     guardarPuntaje(score); // Guardar el puntaje
 }
 

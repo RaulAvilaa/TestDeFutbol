@@ -39,5 +39,37 @@
             { "text": "Argentina", "correct": true },
             { "text": "Chile", "correct": false }
         ]
+    },
+    {
+        "question": "¿David Beckham se convirtió en presidente de qué club recién fundado en 2018?",
+        "answer": [
+            { "text": "Bérgamo Calcio", "correct": false },
+            { "text": "Azul del Oeste de Londres", "correct": false },
+            { "text": "Inter Miami", "correct": true }
+        ]
+    },
+    {
+        "question": "¿Cuál es el decano del fútbol español?",
+        "answer": [
+            { "text": "Deportivo de La Coruña", "correct": false },
+            { "text": "Recreativo de Huelva", "correct": true },
+            { "text": "Alcoyano", "correct": false }
+        ]
+    },
+    {
+        "question": "¿En qué año fue el célebre Maracanazo?",
+        "answer": [
+            { "text": "1978", "correct": false },
+            { "text": "1962", "correct": false },
+            { "text": "1950", "correct": true }
+        ]
+    },
+    {
+        "question": "¿Cual fue el mundial en que Diego Armando Maradona anoto el famoso gol llamado 'La Mano de Dios'?",
+        "answer": [
+            { "text": "México 86", "correct": true },
+            { "text": "Italia 90", "correct": false },
+            { "text": "España 82", "correct": false }
+        ]
     }
 ]
